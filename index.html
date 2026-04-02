@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>wieshfulthinking</title>
+  <meta name="description" content="Thoughts on technology, ideas, and the future."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Syne:wght@400;500;700&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Syne', system-ui, sans-serif;
+      --body:  'Source Serif 4', Georgia, serif;
+      --r: 0.2s ease;
+    }
+    [data-theme="light"] {
+      --bg: #F8F5F0; --surface: #FFFFFF; --border: #E8E2D8;
+      --ink: #141210; --ink2: #4A4540; --ink3: #948D85;
+      --accent: #D4541A; --accent2: #B84414; --nav-bg: rgba(248,245,240,0.92);
+      --tag-tech: #E8F2FB; --tag-tech-t: #1A5A96;
+      --tag-idea: #F0EBF8; --tag-idea-t: #6B32A8;
+      --tag-future: #FFF0E8; --tag-future-t: #C04A10;
+      --tag-life: #E8F5EE; --tag-life-t: #1A7A42;
+    }
+    [data-theme="dark"] {
+      --bg: #111009; --surface: #1C1A16; --border: #2E2A24;
+      --ink: #F0EDE8; --ink2: #B8B0A4; --ink3: #6A6258;
+      --accent: #E8784A; --accent2: #F08A5A; --nav-bg: rgba(17,16,9,0.92);
+      --tag-tech: #0D2238; --tag-tech-t: #7AB8F5;
+      --tag-idea: #1F1030; --tag-idea-t: #C09AF0;
+      --tag-future: #2A1408; --tag-future-t: #F0A870;
+      --tag-life: #0A1F10; --tag-life-t: #70C890;
+    }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--sans); min-height: 100vh; transition: background 0.3s, color 0.3s; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); transition: color var(--r); }
+    .logo:hover { color: var(--accent); }
+    .nav-right { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3); transition: color var(--r); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { background: var(--ink) !important; color: var(--bg) !important; padding: 8px 18px; border-radius: 100px; font-size: 0.75rem !important; letter-spacing: 0.06em; transition: background var(--r) !important; }
+    .nav-cta:hover { background: var(--accent) !important; }
+
+    .theme-toggle {
+      width: 40px; height: 24px; border-radius: 100px; background: var(--border);
+      border: 1px solid var(--border); cursor: pointer; position: relative;
+      transition: background 0.3s; flex-shrink: 0; appearance: none;
+    }
+    .theme-toggle::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; border-radius: 50%; background: var(--ink3);
+      transition: transform 0.25s, background 0.3s;
+    }
+    [data-theme="dark"] .theme-toggle::after { transform: translateX(16px); background: var(--accent); }
+
+    .hero { max-width: 1200px; margin: 0 auto; padding: 3.5rem 2rem 0; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: stretch; }
+    .hero-main { background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); display: flex; flex-direction: column; transition: border-color var(--r); }
+    .hero-main:hover { border-color: var(--ink3); }
+    .hero-img-wrap { position: relative; height: 340px; overflow: hidden; }
+    .hero-img-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #1A1410 0%, #2D2318 40%, #3D3020 70%, #1A1410 100%); }
+    .hero-img-grid { position: absolute; inset: 0; opacity: 0.07; background-image: repeating-linear-gradient(0deg,#fff 0,#fff 1px,transparent 1px,transparent 40px), repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px); }
+    .hero-text { padding: 2rem 2rem 2.5rem; flex: 1; display: flex; flex-direction: column; }
+    .hero-tag { margin-bottom: 1rem; }
+    .hero-title { font-family: var(--serif); font-size: 2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem; flex: 1; }
+    .hero-excerpt { font-family: var(--body); font-size: 1rem; color: var(--ink2); line-height: 1.7; margin-bottom: 1.5rem; }
+    .hero-meta { display: flex; align-items: center; justify-content: space-between; }
+    .hero-byline { font-size: 0.78rem; color: var(--ink3); }
+    .read-btn { font-size: 0.78rem; font-weight: 700; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; transition: gap var(--r), color var(--r); }
+    .read-btn:hover { gap: 10px; color: var(--accent2); }
+    .read-btn::after { content: '→'; }
+
+    .hero-side { display: flex; flex-direction: column; gap: 1px; }
+    .side-card { background: var(--surface); border: 1px solid var(--border); padding: 1.4rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; transition: border-color var(--r); cursor: pointer; }
+    .side-card:first-child { border-radius: 16px 16px 0 0; }
+    .side-card:last-child { border-radius: 0 0 16px 16px; }
+    .side-card + .side-card { border-top: none; }
+    .side-card:hover { border-color: var(--ink3); }
+    .side-num { font-size: 0.7rem; font-weight: 700; color: var(--border); letter-spacing: 0.1em; }
+    .side-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; line-height: 1.3; color: var(--ink); }
+    .side-meta { font-size: 0.75rem; color: var(--ink3); margin-top: auto; padding-top: 0.5rem; }
+
+    .section-header { max-width: 1200px; margin: 3.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; }
+    .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3); white-space: nowrap; }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    .section-filter { display: flex; gap: 0.5rem; }
+    .filter-btn { font-size: 0.72rem; font-weight: 500; padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border); background: transparent; color: var(--ink3); cursor: pointer; transition: all var(--r); font-family: var(--sans); }
+    .filter-btn:hover, .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .card-grid { max-width: 1200px; margin: 2rem auto 0; padding: 0 2rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .post-card { background: var(--surface); border-radius: 14px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; transition: border-color var(--r), transform var(--r); }
+    .post-card:hover { border-color: var(--ink3); transform: translateY(-2px); }
+    .card-img { height: 180px; position: relative; overflow: hidden; }
+    .card-img-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .card-img-tech   { background: linear-gradient(135deg,#0F2A4A,#1A4A7A); }
+    .card-img-idea   { background: linear-gradient(135deg,#1F0F3A,#3A1A6A); }
+    .card-img-future { background: linear-gradient(135deg,#3A1A08,#6A3010); }
+    .card-img-life   { background: linear-gradient(135deg,#0A2A18,#1A4A2A); }
+    .card-img-dots { position: absolute; inset: 0; opacity: 0.12; background-image: radial-gradient(circle,#fff 1px,transparent 1px); background-size: 20px 20px; }
+    .card-img-label { position: relative; z-index: 1; font-family: var(--serif); font-size: 1.6rem; font-style: italic; color: rgba(255,255,255,0.15); text-align: center; padding: 1rem; }
+    .card-body { padding: 1.4rem 1.5rem 1.75rem; display: flex; flex-direction: column; flex: 1; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; }
+    .card-date { font-size: 0.72rem; color: var(--ink3); }
+    .card-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; line-height: 1.35; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 0.75rem; flex: 1; transition: color var(--r); }
+    .post-card:hover .card-title { color: var(--accent); }
+    .card-excerpt { font-family: var(--body); font-size: 0.88rem; color: var(--ink2); line-height: 1.65; margin-bottom: 1.25rem; }
+    .card-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .card-read { font-size: 0.72rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+    .card-time { font-size: 0.72rem; color: var(--ink3); }
+
+    .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+    .tag-tech    { background: var(--tag-tech);   color: var(--tag-tech-t); }
+    .tag-idea    { background: var(--tag-idea);   color: var(--tag-idea-t); }
+    .tag-future  { background: var(--tag-future); color: var(--tag-future-t); }
+    .tag-life    { background: var(--tag-life);   color: var(--tag-life-t); }
+
+    .wide-feature { max-width: 1200px; margin: 1.5rem auto 0; padding: 0 2rem; }
+    .wide-card { background: var(--surface); border-radius: 14px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; transition: border-color var(--r); }
+    .wide-card:hover { border-color: var(--ink3); }
+    .wide-img { height: 260px; background: linear-gradient(135deg,#0A1F14,#163525,#0A1F14); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .wide-img-lines { position: absolute; inset: 0; opacity: 0.08; background-image: repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 1px,transparent 30px); }
+    .wide-img-text { position: relative; z-index: 1; font-family: var(--serif); font-size: 3rem; font-style: italic; color: rgba(255,255,255,0.1); letter-spacing: -0.04em; }
+    .wide-body { padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .wide-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin: 0.75rem 0 1rem; }
+    .wide-excerpt { font-family: var(--body); font-size: 0.95rem; color: var(--ink2); line-height: 1.7; }
+    .wide-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
+    .wide-byline { font-size: 0.75rem; color: var(--ink3); }
+
+    .site-footer { margin-top: 5rem; border-top: 1px solid var(--border); padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; color: var(--ink3); }
+    .footer-note { font-size: 0.75rem; color: var(--ink3); }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: repeat(2,1fr); }
+      .wide-card { grid-template-columns: 1fr; }
+      .wide-img { height: 200px; }
+    }
+    @media (max-width: 600px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .nav-links .nav-cta { display: none; }
+      .section-filter { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="logo">wieshfulthinking</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#">technology</a>
+        <a href="#">ideas</a>
+        <a href="#">future</a>
+        <a href="about.html">about</a>
+        <a href="about.html" class="nav-cta">follow</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid">
+    <a href="posts/first-post.html" class="hero-main">
+      <div class="hero-img-wrap">
+        <div class="hero-img-placeholder"><div class="hero-img-grid"></div></div>
+      </div>
+      <div class="hero-text">
+        <div class="hero-tag"><span class="tag tag-tech">Technology</span></div>
+        <h1 class="hero-title">The quiet revolution happening inside every chip factory right now</h1>
+        <p class="hero-excerpt">Something fundamental shifted in how we build silicon — and most people haven't noticed yet. Here's why it matters more than the AI headlines.</p>
+        <div class="hero-meta">
+          <span class="hero-byline">April 2, 2026 &nbsp;·&nbsp; 6 min read</span>
+          <span class="read-btn">Read</span>
+        </div>
+      </div>
+    </a>
+    <div class="hero-side">
+      <a href="posts/first-post.html" class="side-card">
+        <span class="side-num">02</span>
+        <div class="hero-tag"><span class="tag tag-idea">Idea</span></div>
+        <h2 class="side-title">What if the most useful skill of the next decade is knowing when not to use AI?</h2>
+        <div class="side-meta">March 28 &nbsp;·&nbsp; 4 min</div>
+      </a>
+      <a href="posts/first-post.html" class="side-card">
+        <span class="side-num">03</span>
+        <div class="hero-tag"><span class="tag tag-future">Future</span></div>
+        <h2 class="side-title">Cities that exhale: a future where buildings breathe with the seasons</h2>
+        <div class="side-meta">March 21 &nbsp;·&nbsp; 7 min</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-header">
+  <span class="section-label">Recent posts</span>
+  <div class="section-line"></div>
+  <div class="section-filter">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Tech</button>
+    <button class="filter-btn">Ideas</button>
+    <button class="filter-btn">Future</button>
+  </div>
+</div>
+
+<div class="card-grid">
+  <a href="posts/first-post.html" class="post-card">
+    <div class="card-img card-img-tech"><div class="card-img-inner"><div class="card-img-dots"></div><div class="card-img-label">open source</div></div></div>
+    <div class="card-body">
+      <div class="card-top"><span class="tag tag-tech">Technology</span><span class="card-date">Apr 1, 2026</span></div>
+      <h3 class="card-title">Open source won. Now the interesting part begins.</h3>
+      <p class="card-excerpt">The battle is over. The ecosystem is free. So why does everything still feel locked in?</p>
+      <div class="card-footer"><span class="card-read">Read →</span><span class="card-time">5 min read</span></div>
+    </div>
+  </a>
+  <a href="posts/first-post.html" class="post-card">
+    <div class="card-img card-img-idea"><div class="card-img-inner"><div class="card-img-dots"></div><div class="card-img-label">second-order</div></div></div>
+    <div class="card-body">
+      <div class="card-top"><span class="tag tag-idea">Idea</span><span class="card-date">Mar 26, 2026</span></div>
+      <h3 class="card-title">Second-order kindness: why good intentions often miss the mark</h3>
+      <p class="card-excerpt">Helping someone feel good in the moment and actually helping them are different acts entirely.</p>
+      <div class="card-footer"><span class="card-read">Read →</span><span class="card-time">4 min read</span></div>
+    </div>
+  </a>
+  <a href="posts/first-post.html" class="post-card">
+    <div class="card-img card-img-future"><div class="card-img-inner"><div class="card-img-dots"></div><div class="card-img-label">2040</div></div></div>
+    <div class="card-body">
+      <div class="card-top"><span class="tag tag-future">Future</span><span class="card-date">Mar 18, 2026</span></div>
+      <h3 class="card-title">The jobs that won't exist in 2040 — and who fills the gap</h3>
+      <p class="card-excerpt">We keep asking what automation replaces. We rarely ask what it reveals about what we need from each other.</p>
+      <div class="card-footer"><span class="card-read">Read →</span><span class="card-time">8 min read</span></div>
+    </div>
+  </a>
+</div>
+
+<div class="wide-feature">
+  <a href="posts/first-post.html" class="wide-card">
+    <div class="wide-img"><div class="wide-img-lines"></div><div class="wide-img-text">perspective</div></div>
+    <div class="wide-body">
+      <div>
+        <span class="tag tag-life">Life</span>
+        <h2 class="wide-title">The notebook I kept for a year without reading back — and what happened when I finally did</h2>
+        <p class="wide-excerpt">There's a kind of thinking you can only do on paper, in real time, without editing. I didn't expect it to read like a stranger wrote it.</p>
+      </div>
+      <div class="wide-footer">
+        <span class="wide-byline">March 10, 2026 &nbsp;·&nbsp; 9 min read</span>
+        <span class="read-btn">Read</span>
+      </div>
+    </div>
+  </a>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-logo">wieshfulthinking</span>
+    <span class="footer-note">written with care · built for ideas</span>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const saved = localStorage.getItem('wt-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  html.setAttribute('data-theme', saved);
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('wt-theme', next);
+  });
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

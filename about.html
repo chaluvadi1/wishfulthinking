@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — wieshfulthinking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Syne:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --serif: 'Playfair Display', Georgia, serif; --sans: 'Syne', system-ui, sans-serif; --body: 'Source Serif 4', Georgia, serif; --r: 0.2s ease; }
+    [data-theme="light"] { --bg: #F8F5F0; --surface: #FFFFFF; --border: #E8E2D8; --ink: #141210; --ink2: #3A342E; --ink3: #948D85; --accent: #D4541A; --nav-bg: rgba(248,245,240,0.92); }
+    [data-theme="dark"]  { --bg: #111009; --surface: #1C1A16; --border: #2E2A24; --ink: #F0EDE8; --ink2: #B8B0A4; --ink3: #6A6258; --accent: #E8784A; --nav-bg: rgba(17,16,9,0.92); }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--sans); transition: background 0.3s, color 0.3s; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { position: sticky; top: 0; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); transition: background 0.3s, border-color 0.3s; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; color: var(--ink); transition: color var(--r); }
+    .logo:hover { color: var(--accent); }
+    .nav-right { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3); transition: color var(--r); }
+    .nav-links a:hover { color: var(--ink); }
+
+    .theme-toggle { width: 40px; height: 24px; border-radius: 100px; background: var(--border); border: 1px solid var(--border); cursor: pointer; position: relative; transition: background 0.3s; flex-shrink: 0; appearance: none; }
+    .theme-toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink3); transition: transform 0.25s, background 0.3s; }
+    [data-theme="dark"] .theme-toggle::after { transform: translateX(16px); background: var(--accent); }
+
+    .about-wrap { max-width: 720px; margin: 5rem auto; padding: 0 2rem 6rem; }
+    .about-kicker { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+    .about-h1 { font-family: var(--serif); font-size: 2.8rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 2.5rem; }
+    .about-h1 em { font-style: italic; }
+    .about-body p { font-family: var(--body); font-size: 1.1rem; line-height: 1.85; color: var(--ink2); margin-bottom: 1.75rem; }
+    .about-body a { color: var(--accent); border-bottom: 1px solid rgba(212,84,26,0.3); }
+    .about-body a:hover { border-bottom-color: var(--accent); }
+    .about-divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .about-contact { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3); margin-bottom: 1rem; }
+    .about-email { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--ink); display: block; }
+    .about-email:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="logo">wieshfulthinking</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="/">writing</a>
+        <a href="/about.html">about</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+    </div>
+  </div>
+</nav>
+
+<main class="about-wrap">
+  <p class="about-kicker">About this place</p>
+  <h1 class="about-h1">A blog for ideas worth <em>sitting with.</em></h1>
+  <div class="about-body">
+    <p>wieshfulthinking is where I write about the things I can't stop turning over in my mind — new technology that changes how I see the world, ideas that feel underexplored, futures that seem closer than they look.</p>
+    <p>I write because committing a thought to the page is the only real way I know to find out if I actually believe it. Everything here goes through that test. If it survives, it gets published.</p>
+    <p>No schedule, no niche, no algorithm to please. Just honest thinking, written as clearly as I can manage.</p>
+    <hr class="about-divider"/>
+    <p class="about-contact">Say hello</p>
+    <a href="mailto:you@example.com" class="about-email">you@example.com</a>
+  </div>
+</main>
+
+<script>
+  const html = document.documentElement;
+  const saved = localStorage.getItem('wt-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  html.setAttribute('data-theme', saved);
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('wt-theme', next);
+  });
+</script>
+</body>
+</html>
